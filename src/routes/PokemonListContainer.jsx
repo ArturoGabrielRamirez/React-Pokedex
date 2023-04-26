@@ -50,7 +50,6 @@ const PokemonListContainer = () => {
         radius="lg"
         size="xl"
         position='center'
-
         page={active}
         limit={20}
         total={65}
