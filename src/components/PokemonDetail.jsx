@@ -11,6 +11,9 @@ const PokemonDetail = ({ item }) => {
 
   const { team, addToTeam, clearTeam } = useContext(TeamContext)
 
+  const {name, sprites, id, height, weight, base_experience, abilities, types } = item
+  const {front_default} = sprites
+
 
   const handleClick = () => {
     addToTeam(item)
@@ -23,14 +26,14 @@ const PokemonDetail = ({ item }) => {
   return (
     <>
       <div className="flex flex-col items-center">
-        <h1>{item.name}</h1>
-        <p> # {item.id}</p>
-        <img src={item.sprites.front_default} alt={item.name} />
-        <p>Height: {item.height}</p>
-        <p>Weight: {item.weight}</p>
-        <p>Base experience: {item.base_experience}</p>
-        <p>Abilities: {item.abilities.map((item) => item.ability.name + ", ")}</p>
-        <p>Types: {item.types.map((item) => item.type.name + ", ")}</p>
+        <h1>{name}</h1>
+        <p> # {id}</p>
+        <img src={front_default} alt={name} />
+        <p>Height: {height}</p>
+        <p>Weight: {weight}</p>
+        <p>Base experience: {base_experience}</p>
+        <p>Abilities: {abilities.map((item) => item.ability.name + ", ")}</p>
+        <p>Types: {types.map((item) => item.type.name + ", ")}</p>
         <button onClick={handleClick} >Add To Team</button>
       </div>
 
