@@ -48,6 +48,7 @@ const TeamProvider = ({ children }) => {
   const clearTeam = () => {
     setTeam([])
     localStorage.removeItem("team")
+    toast.success("Equipo eliminado")
   }
 
   const valorDelContexto = {

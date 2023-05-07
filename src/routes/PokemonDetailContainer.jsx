@@ -12,62 +12,32 @@ const PokemonDetailContainer = () => {
   const { id } = useParams()
 
 
-
   useEffect(() => {
-    const cancelSignal = new AbortController()
+    const abort = new AbortController;
 
-    toast.promise(
-      fetch(`${BASE_URL}pokemon/${id}`, {
-        signal: cancelSignal.signal
+
+    fetch(`${BASE_URL}pokemon/${id}`, {
+      signal: abort.signal
+    })
+      .then((response) => {
+        const p = response.json()
+        return toast.promise(p,{
+            loading: 'Cargando...',
+            success: (data) => `Datos de ${data.name} cargados`,
+            error: `No se pudo cargar los datos`
+          })
       })
-        .then((res) => res.json()),
-      {
-        loading: 'Cargando...',
-        success: (data) => {
-          setItem(data)
-          setLoader(false)
-          return 'Pokemon cargado'
-        }
-      },
-      {
-        style: {
-          minWidth: '250px',
-        },
-        success: {
-          duration: 2000,
-        },
-        error: {
-          duration: 10,
-        }, 
-      }
-    )
-    return () => {
-      cancelSignal.abort()
-    }
+      .then((data) => {
+        setItem(data)
+        setLoader(false)
+      })
+      .catch((error) => {
+        console.log(error);
+
+      })
+    return () => abort.abort()
   }, [id])
-  
-       /*  .then((res) => res.json()),
-      {
-        loading: 'Cargando...',
-        success: (data) => {
-          setItem(data)
-          setLoader(false)
-          return 'Pokemon cargado'
-        }
-      },
-      {
-        style: {
-          minWidth: '250px',
-        },
-        success: {
-          duration: 2000,
-        },
-      }
-    )
-    return () => {
-      cancelSignal.abort()
-    }
-  }, []) */
+
 
   if (loader) {
     return (
