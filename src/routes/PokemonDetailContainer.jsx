@@ -2,8 +2,7 @@ import { React, useState, useEffect } from 'react'
 import PokemonDetail from "../components/PokemonDetail"
 import { BASE_URL } from "../components/utils"
 import { useParams } from 'react-router-dom'
-
-
+import { toast } from 'react-hot-toast'
 
 
 
@@ -12,26 +11,79 @@ const PokemonDetailContainer = () => {
   const [loader, setLoader] = useState(true)
   const { id } = useParams()
 
+
+
   useEffect(() => {
-    fetch(`${BASE_URL}pokemon/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setLoader(false)
-        setItem(data)
+    const cancelSignal = new AbortController()
+
+    toast.promise(
+      fetch(`${BASE_URL}pokemon/${id}`, {
+        signal: cancelSignal.signal
       })
-      .catch((error) =>
-        console.log(error)
-      )
-  }, [])
+        .then((res) => res.json()),
+      {
+        loading: 'Cargando...',
+        success: (data) => {
+          setItem(data)
+          setLoader(false)
+          return 'Pokemon cargado'
+        }
+      },
+      {
+        style: {
+          minWidth: '250px',
+        },
+        success: {
+          duration: 2000,
+        },
+        error: {
+          duration: 10,
+        }, 
+      }
+    )
+    return () => {
+      cancelSignal.abort()
+    }
+  }, [id])
+  
+       /*  .then((res) => res.json()),
+      {
+        loading: 'Cargando...',
+        success: (data) => {
+          setItem(data)
+          setLoader(false)
+          return 'Pokemon cargado'
+        }
+      },
+      {
+        style: {
+          minWidth: '250px',
+        },
+        success: {
+          duration: 2000,
+        },
+      }
+    )
+    return () => {
+      cancelSignal.abort()
+    }
+  }, []) */
 
   if (loader) {
-    return <div>Cargando...</div>
+    return (
+      <>
+        <h1>Cargando...</h1>
+      </>
+    )
   }
 
+
+
+
   return (
-
-    <PokemonDetail item={item} />
-
+    <>
+      <PokemonDetail item={item} />
+    </>
   )
 }
 

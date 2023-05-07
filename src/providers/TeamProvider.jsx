@@ -1,5 +1,6 @@
 import { createContext } from "react"
 import { useState, useEffect } from "react"
+import { toast } from "react-hot-toast"
 
 
 
@@ -23,16 +24,17 @@ const TeamProvider = ({ children }) => {
 
   const addToTeam = (item) => {
     if (team.length > 5) {
-      alert("Team Completo")
+      toast.error("Tu equipo esta lleno, no puedes añadir mas Pokemon.")
       return
     }
     if (team.find((pokemon) => pokemon.id === item.id)) {
-      alert("Ya tienes ese pokemon en tu equipo")
+      toast.error("Este Pokemon esta actualmente en tu equipo.")
     }
     else {
       const newTeam = [...team, item]
       setTeam(newTeam)
       localStorage.setItem("team", JSON.stringify(newTeam))
+      toast.success("Pokemon añadido al equipo")
     }
   }
 
@@ -40,6 +42,7 @@ const TeamProvider = ({ children }) => {
     setTeam(team.filter((pokemon) => pokemon.id !== item.id))
     localStorage.removeItem("team", JSON.stringify(team.filter((pokemon) => pokemon.id !== item.id))
     )
+    toast.success("Pokemon eliminado del equipo")
   }
 
   const clearTeam = () => {

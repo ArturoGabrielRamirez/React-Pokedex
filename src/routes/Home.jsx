@@ -1,9 +1,41 @@
-import { BASE_URL } from "../components/utils"
-import { React, useState, useEffect } from 'react'
-import { Link } from "react-router-dom"
+import Login from "./Login"
+import Register from "./Register"
+import { useState } from "react"
 
 
 const Home = () => {
+
+  const [login, setLogin] = useState(false)
+  const [register, setRegister] = useState(false)
+
+  const handleLogin = () => {
+    setLogin(true)
+    setRegister(false)
+  }
+
+  const handleRegister = () => {
+    setRegister(true)
+    setLogin(false)
+  }
+
+  return (
+    <div className="flex flex-col items-center">
+      <h1 className="text-4xl">Bienvenido a nuestra Pokedex</h1>
+      <div className="flex flex-col items-center">
+        <button onClick={handleLogin}>Login</button>
+        <button onClick={handleRegister}>Register</button>
+      </div>
+      {login && <Login />}
+      {register && <Register />}
+    </div>
+  )
+}
+
+export default Home
+
+
+
+/* const Home = () => {
   const [items, setItems] = useState([])
   const [search, setSearch] = useState("")
 
@@ -15,7 +47,7 @@ const Home = () => {
         setItems(data.results)
       })
       .catch((error) =>
-        console.log(error)
+      console.log(error)
       )
   }, [])
 
@@ -40,27 +72,27 @@ const Home = () => {
 
   const results = !search ? items : items.filter(item => item.name.toLowerCase().includes(search.toLowerCase()))
 
-  console.log(results)
+  console.log(results) */
 
 
 
 
-  return (
-    <div className="flex flex-col items-center">
-      <h1 className="text-4xl">Pokedex</h1>
-      <form className="flex flex-col items-center">
-        <input value={search} type="text" placeholder="Buscar Pokemon" onChange={searcher} />
-        <button onClick={handleButtonSearch}>Buscar</button>
-      </form>
-      <ul className="flex flex-wrap justify-center">
-        {results.map((item) => (
-          <li className="flex flex-col items-center border-4" >
-            <h3>{item.name}</h3>
-            <Link to={`/details/${item.url.substring(34)}`}>Ver Detalles</Link>
-          </li>
-        ))}
-      </ul>
-    </div>
-  )
-}
-export default Home
+/* return ( */
+
+/*    <div className="flex flex-col items-center">
+     <h1 className="text-4xl">Pokedex</h1>
+     <form className="flex flex-col items-center">
+       <input value={search} type="text" placeholder="Buscar Pokemon" onChange={searcher} />
+       <button onClick={handleButtonSearch}>Buscar</button>
+     </form>
+     <ul className="flex flex-wrap justify-center">
+       {results.map((item) => (
+         <li className="flex flex-col items-center border-4" >
+           <h3>{item.name}</h3>
+           <Link to={`/details/${item.url.substring(34)}`}>Ver Detalles</Link>
+         </li>
+       ))}
+     </ul>
+   </div>
+ )
+} */

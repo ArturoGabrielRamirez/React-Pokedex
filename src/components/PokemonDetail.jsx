@@ -11,8 +11,8 @@ const PokemonDetail = ({ item }) => {
 
   const { team, addToTeam, clearTeam } = useContext(TeamContext)
 
-  const {name, sprites, id, height, weight, base_experience, abilities, types } = item
-  const {front_default} = sprites
+  const { name, sprites, id, height, weight, base_experience, abilities, types } = item
+  const { front_default } = sprites
 
 
   const handleClick = () => {
@@ -40,9 +40,9 @@ const PokemonDetail = ({ item }) => {
       <div>
         <h1>Team</h1>
 
-        
-          <TeamMemberListContainer team={team} />
-        
+
+        <TeamMemberListContainer team={team} />
+
 
         <button onClick={handleClickToClear}>Clear Team</button>
       </div>

@@ -13,17 +13,11 @@ const Team = () => {
   const handleClickToClear = () => {
     clearTeam()
   }
-
   return (
-
     <div className="flex flex-col">
-
       <h1 className="text-red-400">Team</h1>
-
       <TeamMemberList team={team} />
-
       <button onClick={handleClickToClear}>Clear Team</button>
-
     </div>
   )
 }

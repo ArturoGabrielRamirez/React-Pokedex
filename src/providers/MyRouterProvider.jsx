@@ -5,6 +5,8 @@ import Team from "../routes/Team"
 import Home from "../routes/Home"
 import Contacts from "../routes/Contacts"
 import PokemonDetailContainer from "../routes/PokemonDetailContainer"
+import Login from "../routes/Login"
+import Register from "../routes/Register"
 
 
 
@@ -16,6 +18,14 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <Home />,
+      },
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "register",
+        element: <Register />,
       },
       {
         path: "pokedex",
